@@ -1,0 +1,14 @@
+menu
+sons
+IA
+highscore
+second mode (fun)
+inclure les différentes voitures
+interface
+décors sur le teco
+
+Questions:
+
+Qd est-ce qu'on "tue" les autres voitures ?
+Les autres voitures vont-elles toutes à la même vitesse ?
+

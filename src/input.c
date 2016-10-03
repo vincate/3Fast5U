@@ -39,11 +39,6 @@ void UpdateEvents(Input* in)
 
 void getInput()
 {
-
-  //Input in;
- // memset(&in,0,sizeof(in));
-
-	//SDL_Event event;
 	UpdateEvents(&in);
 	int moux;
 	int mouy;
@@ -62,42 +57,43 @@ void getInput()
 	printf("LEFT BUTTON PRESSED in: %d, %d\n", moux, mouy);
 	}
 
-    if(in.key[SDLK_d] || in.key[SDLK_q] || in.key[SDLK_a] || in.key[SDLK_RIGHT] || in.key[SDLK_LEFT]){
-        if(in.key[SDLK_d] || in.key[SDLK_RIGHT]){
-            Player.acc = 1;
-        }else{
-            Player.acc = -1;
+
+    if(Player.ia == 0){
+
+        if(in.key[SDLK_d] || in.key[SDLK_q] || in.key[SDLK_a] || in.key[SDLK_RIGHT] || in.key[SDLK_LEFT]){
+            if(in.key[SDLK_d] || in.key[SDLK_RIGHT]){
+                Player.acc = 1;
+            }else{
+                Player.acc = -1;
+            }
+        }else if(in.key[SDLK_d] == 0 && in.key[SDLK_q] == 0 && in.key[SDLK_a] == 0 && in.key[SDLK_RIGHT] == 0 && in.key[SDLK_LEFT] == 0){
+            Player.acc = 0;
         }
-    }else if(in.key[SDLK_d] == 0 && in.key[SDLK_q] == 0 && in.key[SDLK_a] == 0 && in.key[SDLK_RIGHT] == 0 && in.key[SDLK_LEFT] == 0){
-        Player.acc = 0;
+
+        if((in.key[SDLK_z] || in.key[SDLK_w] || in.key[SDLK_UP]) && Player.lane > 0 && Player.y == Player.lane*GRID_STEP+PATH_TOP_Y) {
+            Player.lane --;
+            Player.dir = 0;
+        }
+        if((in.key[SDLK_s] || in.key[SDLK_DOWN]) && Player.lane < 3 && Player.y == Player.lane*GRID_STEP+PATH_TOP_Y){
+            Player.lane++;
+            Player.dir = 2;
+        }
+
+    }else{
+
+    IA();
+
     }
 
-/*
-	if(in.key[SDLK_d]) {
-		//Player.acc = 1;
+	if(in.key[SDLK_i]){
 
-	}else if(in.key[SDLK_d] == 0){
-    Player.acc = 1;
-//	sprintf(string,"touche relaché");
+
+            Player.ia++;
+            Player.ia%=2;
+            in.key[SDLK_i] = 0;
+
+
 	}
-
-
-	if(in.key[SDLK_q] || in.key[SDLK_a]){
-		Player.acc = -1;
-	}else if(in.key[SDLK_q] == 0 || in.key[SDLK_a] == 0){
-	//Player.acc = 0;
-	}
-	*/
-
-	if((in.key[SDLK_z] || in.key[SDLK_w] || in.key[SDLK_UP]) && Player.lane > 0 && Player.y == Player.lane*GRID_STEP+PATH_TOP_Y) {
-		Player.lane --;
-		Player.dir = 0;
-	}
-	if((in.key[SDLK_s] || in.key[SDLK_DOWN]) && Player.lane < 3 && Player.y == Player.lane*GRID_STEP+PATH_TOP_Y){
-		Player.lane++;
-		Player.dir = 2;
-	}
-
 }
 
 

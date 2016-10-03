@@ -16,8 +16,12 @@
 #define PATH_BOTTOM_Y 500
 #define GRID_STEP 49
 
-#define MAX_OFFICERS 100
-#define MAX_TOURELLES 20
+#define PLAYER_X 150
+
+#define REGULAR_P_SPEED 135
+#define REGULAR_O_SPEED 130
+
+#define MAX_OFFICERS 300
 
 typedef struct Input
 {
@@ -43,7 +47,7 @@ typedef struct game
 
 typedef struct player
 {
-  int lane, dir, acc;
+  int lane, dir, acc, ia;
   double x, y, speed;
   SDL_Surface *sprite;
 } player;
@@ -52,7 +56,7 @@ typedef struct player
 typedef struct officer
 {
   double x, y, speed;
-  int alive, passed;
+  int alive, passed, lane;
   SDL_Surface *sprite;
 } officer;
 
@@ -61,6 +65,11 @@ typedef struct Sprites
 	SDL_Surface *image;
 } Sprites;
 
+typedef struct pattern
+{
+    double x, y;
+    SDL_Surface *sprite;
+} pattern;
 enum
 {
 	PLAYER_SPRITE=0,
@@ -79,6 +88,7 @@ officer Officer[MAX_OFFICERS];
 game Game;
 Sprites sprite[MAX_SPRITES];
 Input in;
+pattern Pattern;
 //memset(&in,0,sizeof(in));
 
 
@@ -113,7 +123,9 @@ int main(int argc, char *argv[]);
 void drawPlayer();
 void initPlayer();
 void movePlayer();
-
+void IA();
+double calcDisH();
+double calcDisB();
 // ************** ennemi.c
 void initOfficer(int n, int lane);
 void drawOfficer();
@@ -127,3 +139,6 @@ void collision();
 
 //*************** interface.c
 void drawInterface();
+
+//*************** pattern.c
+void drawBackground();

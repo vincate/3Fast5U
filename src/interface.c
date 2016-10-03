@@ -7,6 +7,6 @@ void drawInterface()
     sprintf(string,"%d",Game.score);
     drawText(string, 150, SCREEN_HEIGHT - 50, textFont);
     drawText("speed: ", 200, SCREEN_HEIGHT - 50,textFont);
-    sprintf(string,"%f",Player.speed);
+    sprintf(string,"%.0f",Player.speed);
     drawText(string, 250, SCREEN_HEIGHT - 50, textFont);
 }

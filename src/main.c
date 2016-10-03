@@ -12,11 +12,12 @@ int main(int argc, char *argv[])
 	Game.nbTourelleCreated=0;
 	Game.score = 0;
 
-	init("3 Fast 5 You");
+	init("Jeu de course de la mort qui tue !!!!!!");
 	atexit(cleanup);
 	go = 1;
 	loadAllSprites();
 	initPlayer();
+	initPattern();
 
 
 	while (go == 1)

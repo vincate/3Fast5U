@@ -5,37 +5,36 @@ void initOfficer(int n, int lane)
 		Officer[n].sprite = getSprite(OFFICER_SPRITE);
 		Officer[n].x =SCREEN_WIDTH;
 		Officer[n].y =lane*GRID_STEP+PATH_TOP_Y;
-		Officer[n].speed = 115;
+		Officer[n].speed = REGULAR_O_SPEED ;
 		Officer[n].alive =1;
 		Officer[n].passed =0;
+		Officer[n].lane = lane;
 		printf("Officer %d at: %d,%d\n", n, Officer[n].x, Officer[n].y);
 }
 
-void createWave(){
 
-	time_t t;
-	srand((unsigned) time(&t));
-	Game.nbEnnemiWave = rand() %Game.nbWave +100+Game.nbWave;
-
-	if(Game.nbEnnemiWave >= MAX_OFFICERS){
-		Game.nbEnnemiWave = MAX_OFFICERS-1;
-	}
-}
 
 void createOfficers(){
-	int lane;
+	int i, lane;
 
-	if( Game.nbEnnemiCreated <= Game.nbEnnemiWave){
-		lane = rand()%4;
-		initOfficer(Game.nbEnnemiCreated, lane);
-		Game.nbEnnemiCreated++;
-	}
+    lane = rand()%4;
+
+    for(i = 0; i <= Game.nbEnnemiCreated; i++){
+        if(Officer[i].y == (lane*GRID_STEP+PATH_TOP_Y) && Officer[i].x > SCREEN_WIDTH - 200 ){
+            lane = -1;
+        }
+    }
+
+    if(lane != -1){
+        initOfficer(Game.nbEnnemiCreated, lane);
+        Game.nbEnnemiCreated++;
+    }
 }
 
 void drawOfficer()
 {
 	int i;
-	for(i=0; i<Game.nbEnnemiCreated; i++){
+	for(i=0; i<=Game.nbEnnemiCreated; i++){
 		if(Officer[i].alive == 1){
 		drawImage(Officer[i].sprite, Officer[i].x, Officer[i].y);
 		}
@@ -43,10 +42,11 @@ void drawOfficer()
 }
 
 void moveOfficers() {
-	int i;
+	int i,j;
 
 	for(i=0; i<=Game.nbEnnemiCreated;i++){
 		if(Officer[i].alive == 1){
+
 			Officer[i].x += (Officer[i].speed - Player.speed);
 
             if(Officer[i].x < Player.x && Officer[i].passed == 0){
@@ -59,10 +59,7 @@ void moveOfficers() {
 
 void doEnnemi(){
 	int tick = Game.timer % 20;
-	if(Game.countdown ==0){
-		createWave();
-	}
-	if(tick ==0){
+	if(tick ==0 && Player.x > Officer[Game.nbEnnemiCreated - 1].x - SCREEN_WIDTH){
 		createOfficers();
 	}
 	moveOfficers();

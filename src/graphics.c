@@ -111,7 +111,7 @@ void drawMenu(char *text, int x, int y, TTF_Font *Font)
 	SDL_FreeSurface(surface);
 }
 
-void drawText(char *text, int x, int y, TTF_Font *textFont)    // Paramï¿½tres d'affichage de l'interface sur la carte noir/bleu
+void drawText(char *text, int x, int y, TTF_Font *textFont)    // Paramètres d'affichage de l'interface sur la carte noir/bleu
 {
     SDL_Rect dest;
     SDL_Surface *surface;
@@ -199,8 +199,8 @@ void freeSprites()
 
 void loadAllSprites()
 {
-	Font = loadFont("sfd/Market_Deco.ttf", 30);
-	textFont = loadFont("sfd/Market_Deco.ttf", 15);
+	Font = loadFont("sfd/FreeSans.ttf", 30);
+	textFont = loadFont("sfd/FreeSans.ttf", 15);
 	loadSprite(PLAYER_SPRITE, "gfx/Roger_Clean.png");
 	loadSprite(BACKGROUND_SPRITE, "gfx/TerrainV1.png");
 	loadSprite(OFFICER_SPRITE, "gfx/Agent_Clean.png");
@@ -224,7 +224,7 @@ void updateScreen()
 	  case 1:
 		doEnnemi();
 		movePlayer();
-		drawImage(getSprite(BACKGROUND_SPRITE), 0, 0);
+		drawBackground();
 		drawPlayer();
 		drawOfficer();
 		collision();
